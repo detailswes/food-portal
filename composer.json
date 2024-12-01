@@ -1,0 +1,100 @@
+{
+    "name": "ixdf/back-end-developer-code-challenge",
+    "description": "IxDF code challenge for fullstack or backend developer position",
+    "license": "proprietary",
+    "type": "project",
+    "keywords": [
+        "laravel",
+        "code challenge"
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-intl": "*",
+        "ext-pdo": "*",
+        "filament/filament": "^3.3",
+        "filament/forms": "^3.3",
+        "guzzlehttp/guzzle": "^7.9",
+        "itsgoingd/clockwork": "^5.2",
+        "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.4",
+        "livewire/livewire": "^3.6"
+    },
+    "require-dev": {
+        "driftingly/rector-laravel": "^1.2",
+        "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^2.9",
+        "laravel/breeze": "^2.1",
+        "laravel/pail": "^1.1",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.26",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.1",
+        "phpunit/phpunit": "^11.0.1"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "cs": "@cs:fix",
+        "cs:fix": "./vendor/bin/pint",
+        "cs:lint": "./vendor/bin/pint --test",
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "./vendor/bin/sail up -d",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"./vendor/bin/sail logs -f\" \"sail artisan queue:listen --tries=1\" \"./vendor/bin/sail artisan pail --timeout=0\" \"./vendor/bin/sail npm run dev\" --names=sail,queue,logs,vite"
+        ],
+        "rector": "@php -d memory_limit=-1 vendor/bin/rector process --ansi",
+        "sa": "./vendor/bin/phpstan analyse --memory-limit=2G",
+        "sa:bl": "@php -d memory_limit=-1 ./vendor/bin/phpstan analyse --configuration phpstan.neon --generate-baseline --allow-empty-baseline",
+        "test": "phpunit"
+    }
+}

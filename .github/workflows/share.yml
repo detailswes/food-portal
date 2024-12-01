@@ -1,0 +1,53 @@
+name: Share challenge
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: 'Candidate GitHub Username without @'
+        required: true
+        type: string
+
+jobs:
+  setup-repo:
+    name: Setup and share challenge repo
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.IXDF_BOT_PAT_TO_CREATE_CODE_CHALLENGES_FROM_TEMPLATES }}
+
+    steps:
+      - name: Validate GitHub username
+        run: |
+          candidate_name=$(gh api /users/${{ github.event.inputs.username }} --jq '.name')
+          echo "candidate_name=$candidate_name" >> $GITHUB_ENV
+          echo "Candidate name: $candidate_name"
+
+      - name: Assign internal variables
+        run: |
+          new_repo_owner=ixdf-bot
+          new_repo_name=IxDF-backend-code-challenge--${{ github.event.inputs.username }}
+          echo "new_repo_owner=$new_repo_owner" >> $GITHUB_ENV
+          echo "new_repo_name=$new_repo_name" >> $GITHUB_ENV
+
+      # @see https://cli.github.com/manual/gh_repo_create
+      - name: Create GitHub repository
+        run: |
+          gh repo create "$new_repo_name" \
+          --template="${{ github.repository }}" \
+          --description="Code challenge for $candidate_name" \
+          --private
+
+      # @see https://docs.github.com/en/rest/collaborators/collaborators?apiVersion=2022-11-28#add-a-repository-collaborator
+      - name: Invite candidate to the newly created repository
+        run: |
+          gh api --method PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "/repos/$new_repo_owner/$new_repo_name/collaborators/${{ github.event.inputs.username }}"
+        # as the '{"permission": "maintain"}' parameter is only used with organization-level repos, it wasn't included here
+
+      - name: Cleanup repository settings
+        run: gh repo edit --enable-projects=false "$new_repo_owner/$new_repo_name"
+
+      - name: Action conclusion
+        run: echo "Coding challenge repository copy create and ${{ github.event.inputs.username }} successfully invited to it as a maintainer/collaborator."

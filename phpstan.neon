@@ -1,0 +1,25 @@
+parameters:
+    paths:
+        - app
+        - bootstrap
+        - config
+        - database
+        - resources/views
+        - routes
+        - tests
+
+    # The level 9 is the highest level
+    level: 9
+    reportUnmatchedIgnoredErrors: false
+    checkMissingCallableSignature: true
+
+    ignoreErrors:
+        - '#will always evaluate to true#'
+
+    excludePaths:
+        analyse:
+            - app/Http/Controllers/Auth/*
+services:
+
+includes:
+    - phpstan-baseline.neon

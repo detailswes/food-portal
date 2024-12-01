@@ -1,0 +1,80 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.php'
+      - '**.js'
+      - '**.json'
+      - '**.xml'
+      - 'composer.*'
+      - '.github/workflows/main.yml'
+
+jobs:
+
+  test_php:
+    name: Run PHP tests
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, '[skip ci]')"
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+    services:
+      # Label used to access the service container
+      redis:
+        # Docker Hub image
+        image: redis:7-alpine
+        # Set health checks to wait until redis has started
+        ports:
+          # Opens tcp port 6379 on the host and service container
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GH_TOKEN_FOR_COMPOSER_FOR_PRIVATE_REPOS }}
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v3
+        with:
+          composer-options: "--prefer-dist --no-scripts"
+
+      - name: Prepare Laravel application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Create testing DB
+        run: |
+          sudo /etc/init.d/mysql start --explicit_defaults_for_timestamp
+          mysql -u root -proot -e 'CREATE DATABASE IF NOT EXISTS `ixdf_codechallenge`;'
+
+      - name: Prepare (Create, migrate and seed) test databases
+        run: php artisan migrate:fresh --seed
+
+      - name: Execute PHP tests
+        run: composer test
+        env:
+          REDIS_HOST: 127.0.0.1
+
+      - name: Run migration rollback
+        run: php artisan migrate:rollback
+
+      - name: Validate composer.lock
+        run: composer validate --no-check-all --strict # Validate `composer.lock` file

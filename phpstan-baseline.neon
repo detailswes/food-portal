@@ -1,0 +1,161 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property App\\\\Models\\\\QuizAnswer\\:\\:\\$answer \\(string\\) does not accept mixed\\.$#"
+			count: 1
+			path: app/Http/Controllers/Courses/StoreQuizAnswerController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\QuizAnswer\\:\\:\\$user_id \\(int\\) does not accept int\\|string\\|null\\.$#"
+			count: 1
+			path: app/Http/Controllers/Courses/StoreQuizAnswerController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Courses\\\\StoreQuizAnswerRequest\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Controllers/Courses/StoreQuizAnswerRequest.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Course\\:\\:lessons\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel, TDeclaringModel$#"
+			count: 1
+			path: app/Models/Course.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Course\\:\\:quizzes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel, TIntermediateModel, TDeclaringModel$#"
+			count: 1
+			path: app/Models/Course.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Course\\:\\:quizzes\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough but returns Illuminate\\\\Database\\\\Query\\\\Builder\\.$#"
+			count: 1
+			path: app/Models/Course.php
+
+		-
+			message: "#^Parameter \\#1 \\$model of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User,App\\\\Models\\\\CourseEnrollment\\>\\:\\:associate\\(\\) expects App\\\\Models\\\\User\\|int\\|string\\|null, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable&Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Models/Course.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Lesson\\:\\:quizzes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel, TDeclaringModel$#"
+			count: 1
+			path: app/Models/Lesson.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Quiz\\:\\:answers\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel, TDeclaringModel$#"
+			count: 1
+			path: app/Models/Quiz.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Quiz\\:\\:getAnswerOf\\(\\) should return App\\\\Models\\\\QuizAnswer\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
+			count: 1
+			path: app/Models/Quiz.php
+
+		-
+			message: "#^Method App\\\\Models\\\\User\\:\\:country\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Country, App\\\\Models\\\\User\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Country, \\$this\\(App\\\\Models\\\\User\\)\\>\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^Method App\\\\Models\\\\User\\:\\:courseEnrollments\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel, TDeclaringModel$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: config/app.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: config/cache.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: config/database.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: config/logging.php
+
+		-
+			message: "#^Parameter \\#1 \\$url of function parse_url expects string, mixed given\\.$#"
+			count: 1
+			path: config/mail.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 3
+			path: config/queue.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: config/sanctum.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: config/session.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CountryFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\Country\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Country\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/CountryFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CourseEnrollmentFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\CourseEnrollment\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\CourseEnrollment\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/CourseEnrollmentFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CourseFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\Course\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Course\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/CourseFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\LessonFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\Lesson\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Lesson\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/LessonFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\QuizAnswerFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\QuizAnswer\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\QuizAnswer\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/QuizAnswerFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\QuizFactory\\:\\:\\$model is not covariant with PHPDoc type class\\-string\\<App\\\\Models\\\\Quiz\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Quiz\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/QuizFactory.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$code\\.$#"
+			count: 1
+			path: database/factories/UserFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$courseId of method Database\\\\Seeders\\\\CourseEnrollmentSeeder\\:\\:enrollAllUsersTo\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: database/seeders/CourseEnrollmentSeeder.php
+
+		-
+			message: "#^Parameter \\#2 \\$courseId of method Database\\\\Seeders\\\\CourseEnrollmentSeeder\\:\\:enrollRandomUsersTo\\(\\) expects int, int\\|null given\\.$#"
+			count: 3
+			path: database/seeders/CourseEnrollmentSeeder.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\Factory\\:\\:user\\(\\)\\.$#"
+			count: 1
+			path: resources/views/lessons/show.blade.php
+
+		-
+			message: "#^Variable \\$quiz might not be defined\\.$#"
+			count: 1
+			path: resources/views/lessons/show.blade.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: routes/console.php
