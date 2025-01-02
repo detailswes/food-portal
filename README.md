@@ -38,8 +38,8 @@ docker compose exec app php artisan migrate:fresh --seed --seeder=DatabaseSeeder
 # Install front end dependencies
 docker compose exec app npm install --no-update-notifier --no-fund
 
-# Run Vite server (CSS, JS)
-docker compose exec app npm run dev
+# Run Vite server (CSS, JS) within the container
+npm run dev
 
 # For login Run the seeders
 php artisan db:seed
